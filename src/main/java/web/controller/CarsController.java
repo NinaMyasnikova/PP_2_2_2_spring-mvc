@@ -12,17 +12,9 @@ public class CarsController {
 	@Autowired
 	private CarService carService;
 
-	/*public CarsController(CarService carService) {
-		this.carService = carService;
-	}*/
-
 	@GetMapping(value = "/cars")
-	public String printWelcome(ModelMap model, @RequestParam(value = "count", required = false) String count) {
-		if (count == null) {
-			model.addAttribute("messages", carService.listCars());
-		} else {
-			model.addAttribute("messages", carService.oneCar(Integer.parseInt(count)));
-		}
+	public String printCar(ModelMap model, @RequestParam(value = "count", required = false, defaultValue = "5") int count) {
+		model.addAttribute("messages", carService.getCars(count));
 		return "car";
 	}
 	

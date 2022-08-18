@@ -5,7 +5,6 @@ import web.model.Car;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class CarDaoImpl implements CarDao{
@@ -18,13 +17,13 @@ public class CarDaoImpl implements CarDao{
         listOfCars.add(new Car("brand4", "model4", 4));
         listOfCars.add(new Car("brand5", "model5", 5));
     }
-    @Override
-    public List<Car> getAllCars() {
-        return listOfCars;
-    }
 
     @Override
-    public List<Car> getAnyCars(int count) {
-        return listOfCars.stream().limit(count).collect(Collectors.toList());
+    public List<Car> getCars(int count) {
+        if (count >= listOfCars.size() || count < 0) {
+            return listOfCars;
+        } else {
+            return listOfCars.stream().limit(count).toList();
+        }
     }
 }
